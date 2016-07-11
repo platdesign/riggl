@@ -17,13 +17,11 @@ describe('riggl.act([sig])', () => {
 	});
 
 
-
-
 	it('should return a promise', () => {
-		expect(instance.act({})).to.be.an.object().and.to.be.instanceof(Promise);
+		expect(instance.act({}))
+			.to.be.an.object()
+			.and.to.be.instanceof(Promise);
 	});
-
-
 
 
 	it('should act', () => {
@@ -39,7 +37,30 @@ describe('riggl.act([sig])', () => {
 			service: 'test',
 			cmd: 'run'
 		}).then((res) => {
-			expect(res).to.be.a.number().and.equal(123);
+
+			expect(res)
+				.to.be.a.number()
+				.and.equal(123);
+
+		});
+
+	});
+
+
+	it('should throw error on unknown signature', () => {
+
+		return instance.act({
+			service: 'test',
+			cmd: 'run'
+		}).catch((err) => {
+
+			expect(err)
+				.to.be.an.error();
+
+			expect(err.isBoom)
+				.to.be.a.boolean()
+				.and.equal(true);
+
 		});
 
 	});

@@ -5,6 +5,7 @@
   "version": "0.0.0",
   "dependencies": {
     "bloomrun": "^2.0.0",
+    "boom": "^3.2.2",
     "request-payload": "^1.0.1",
     "request-promise": "^3.0.0"
   },

@@ -63,6 +63,24 @@ describe('http-transporter', () => {
 
 
 
+	it('should act with error on unknown method', () => {
+
+		return client.act({
+			service: 'math',
+			cmd: 'unknown'
+		})
+		.catch((err) => {
+			expect(err)
+				.to.be.an.error();
+		});
+
+
+	});
+
+
+
+
+
 });
 
 
