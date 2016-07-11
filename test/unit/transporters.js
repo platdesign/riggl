@@ -6,7 +6,7 @@ const expect = Code.expect;
 const path = require('path');
 
 
-const createTransporterTests = require('./lib/transporter-tests');
+const createTransporterTests = require('./lib/create-transporter-tests');
 const createUnitTransporter = require('./lib/unit-transporter');
 
 

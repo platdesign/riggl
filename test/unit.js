@@ -10,6 +10,7 @@ describe('unit:', () => {
 	require('./unit/method-use');
 	require('./unit/method-transporter');
 
+	require('./unit/flow');
 	require('./unit/transporters');
 
 });
