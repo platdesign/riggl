@@ -4,7 +4,9 @@
   "author": "Christian Blaschke <mail@platdesign.de>",
   "version": "0.0.0",
   "dependencies": {
-    "bloomrun": "^2.0.0"
+    "bloomrun": "^2.0.0",
+    "request-payload": "^1.0.1",
+    "request-promise": "^3.0.0"
   },
   "repository": "",
   "main": "./lib/riggl.js",
@@ -12,7 +14,7 @@
     "code": "^3.0.1",
     "mocha": "^2.5.3"
   },
-  "scripts":{
-    "test":"mocha"
+  "scripts": {
+    "test": "mocha"
   }
 }

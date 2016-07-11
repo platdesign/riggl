@@ -44,7 +44,7 @@ describe('riggl.transporter([Transporter], [Options])', () => {
 		expect(res).to.equal(instance);
 		expect(instance._transporters)
 			.to.be.an.object()
-			.and.have.length(1);
+			.and.have.length(3); // 3 Cause of http & tcp default transporters
 
 	});
 
