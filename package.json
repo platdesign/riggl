@@ -3,7 +3,9 @@
   "description": "Create Microservices with riggl",
   "author": "Christian Blaschke <mail@platdesign.de>",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "bloomrun": "^2.0.0"
+  },
   "repository": "",
   "main": "./lib/riggl.js",
   "devDependencies": {
