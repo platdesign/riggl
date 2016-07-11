@@ -6,6 +6,7 @@
   "dependencies": {
     "bloomrun": "^2.0.0",
     "boom": "^3.2.2",
+    "messenger": "0.0.9",
     "request-payload": "^1.0.1",
     "request-promise": "^3.0.0"
   },

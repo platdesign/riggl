@@ -16,7 +16,9 @@ describe('riggl.transporter([Transporter], [Options])', () => {
 
 	let instance;
 	beforeEach(() => {
-		instance = Riggl();
+		instance = Riggl({
+			logger: () => {}
+		});
 	});
 
 	it('should register transporter', () => {
@@ -44,7 +46,7 @@ describe('riggl.transporter([Transporter], [Options])', () => {
 		expect(res).to.equal(instance);
 		expect(instance._transporters)
 			.to.be.an.object()
-			.and.have.length(3); // 3 Cause of http & tcp default transporters
+			.and.have.length(2); // 2 Cause of http default transporter
 
 	});
 
@@ -58,7 +60,9 @@ describe('riggl.transporter([Transporter], [Options])', () => {
 
 		let instanceB;
 		beforeEach(() => {
-			instanceB = Riggl();
+			instanceB = Riggl({
+				logger: () => {}
+			});
 		});
 
 

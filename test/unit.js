@@ -10,8 +10,6 @@ describe('unit:', () => {
 	require('./unit/method-use');
 	require('./unit/method-transporter');
 
-	require('./unit/transporter-http');
-	require('./unit/transporter-tcp');
+	require('./unit/transporters');
 
-
-})
+});
