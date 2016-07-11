@@ -17,8 +17,6 @@ describe('use(Plugin, options)', () => {
 	});
 
 
-
-
 	it('should add new handler from plugin', () => {
 
 		const Plugin = function(options) {
