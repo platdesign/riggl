@@ -1,14 +1,17 @@
 'use strict';
 
+const path = require('path');
+const TransporterBase = require(path.join( process.cwd(), 'lib', 'transporters', 'base'));
 
 module.exports = function createUnitTransporter() {
 
 	const servers = {};
 
-	function UnitTransporter(riggl, options) {
 
-		this.request = function(args, serverOptions) {
 
+	class UnitTransporter extends TransporterBase {
+
+		request(args, serverOptions) {
 			return servers[serverOptions.port](args)
 				.then((res) => {
 					return JSON.parse(res);
@@ -20,10 +23,13 @@ module.exports = function createUnitTransporter() {
 
 
 
-		this.listen = function(options) {
+		listen(options) {
+			const that = this;
+
+
 			servers[options.port] = function requestHandler(args) {
 
-				return riggl.act(args)
+				return that.riggl.act(args)
 					.then((res) => {
 						return JSON.stringify({
 							response: res
@@ -35,11 +41,18 @@ module.exports = function createUnitTransporter() {
 					});
 
 			};
+
+			this.log(['info'], 'Listening');
+
+			this.on('close', function() {
+				that.log(['closed']);
+			});
+
 		};
 
-
-
 	}
+
+
 
 	UnitTransporter.attributes = { name: 'unit' };
 
