@@ -9,6 +9,7 @@ const path = require('path');
 const Riggl = require( CWD );
 
 const createFlowTests = require('./create-flow-tests');
+const createValueTests = require('./create-value-tests');
 
 module.exports = function(Transporter) {
 
@@ -43,7 +44,7 @@ module.exports = function(Transporter) {
 				type: type,
 				port: 5555,
 				timeout: 200,
-				pin: [{ service: 'math' }]
+				pin: [{ service: 'math' }, { service: 'test' }]
 			});
 
 		});
@@ -55,7 +56,7 @@ module.exports = function(Transporter) {
 
 
 		createFlowTests(env);
-
+		createValueTests(env);
 
 
 		it('should act with error on timeout', function() {

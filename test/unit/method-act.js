@@ -8,51 +8,31 @@ const path = require('path');
 
 const Riggl = require( CWD );
 
+describe('act(signature)', () => {
 
-describe('riggl.act([sig])', () => {
+	const env = {};
 
-	let instance;
 	beforeEach(() => {
-		instance = Riggl();
+		env.server = env.client = Riggl();
 	});
 
 
 	it('should return a promise', () => {
-		expect(instance.act({}))
+
+		expect(env.client.act({}))
 			.to.be.an.object()
 			.and.to.be.instanceof(Promise);
-	});
-
-
-	it('should act', () => {
-
-		instance.add({
-			service: 'test',
-			cmd: 'run'
-		}, function(args) {
-			return 123;
-		});
-
-		return instance.act({
-			service: 'test',
-			cmd: 'run'
-		}).then((res) => {
-
-			expect(res)
-				.to.be.a.number()
-				.and.equal(123);
-
-		});
 
 	});
 
 
 	it('should throw error on unknown signature', () => {
 
-		return instance.act({
+		return env.client.act({
 			service: 'test',
 			cmd: 'run'
-		}).catch((err) => {
+		})
+		.catch((err) => {
 
 			expect(err)
 				.to.be.an.error();
@@ -64,10 +44,6 @@ describe('riggl.act([sig])', () => {
 		});
 
 	});
-
-
-
-
 
 
 });

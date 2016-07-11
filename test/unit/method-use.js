@@ -9,12 +9,15 @@ const path = require('path');
 const Riggl = require( CWD );
 
 
-describe('riggl.use([Plugin], [Options])', () => {
+describe('use(Plugin, options)', () => {
 
 	let instance;
 	before(() => {
 		instance = Riggl();
 	});
+
+
+
 
 	it('should add new handler from plugin', () => {
 

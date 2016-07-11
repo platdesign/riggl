@@ -12,7 +12,7 @@ const createUnitTransporter = require('./lib/unit-transporter');
 
 
 
-describe('riggl.transporter([Transporter], [Options])', () => {
+describe('transporter(Transporter, options)', () => {
 
 	let instance;
 	beforeEach(() => {
@@ -20,6 +20,8 @@ describe('riggl.transporter([Transporter], [Options])', () => {
 			logger: () => {}
 		});
 	});
+
+
 
 	it('should register transporter', () => {
 

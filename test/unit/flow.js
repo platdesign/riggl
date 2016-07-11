@@ -7,6 +7,7 @@ const path = require('path');
 
 const Riggl = require( CWD );
 const createFlowTests = require('./lib/create-flow-tests');
+const createValueTests = require('./lib/create-value-tests');
 
 
 describe('Without transporter', () => {
@@ -18,5 +19,6 @@ describe('Without transporter', () => {
 	});
 
 	createFlowTests(env);
+	createValueTests(env);
 
 });

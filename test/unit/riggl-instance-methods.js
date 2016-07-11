@@ -9,7 +9,7 @@ const path = require('path');
 const Riggl = require( CWD );
 
 
-describe('riggl instance methods', () => {
+describe('instance methods', () => {
 
 	let instance;
 	before(() => {
