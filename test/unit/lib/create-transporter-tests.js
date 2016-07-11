@@ -20,9 +20,7 @@ module.exports = function(Transporter) {
 
 		const env = {};
 
-
-
-		beforeEach(() => {
+		beforeEach((done) => {
 
 			env.client = Riggl({
 				logger: () => {}
@@ -46,6 +44,8 @@ module.exports = function(Transporter) {
 				timeout: 200,
 				pin: [{ service: 'math' }, { service: 'test' }]
 			});
+
+			env.client.ready(done);
 
 		});
 
