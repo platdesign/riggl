@@ -41,6 +41,7 @@ module.exports = function(Transporter) {
 			client.client({
 				type: type,
 				port: 5555,
+				timeout: 200,
 				pin: [{ service: 'math' }]
 			});
 		});
@@ -69,7 +70,6 @@ module.exports = function(Transporter) {
 					.and.equal(8);
 			});
 
-
 		});
 
 
@@ -90,11 +90,77 @@ module.exports = function(Transporter) {
 				expect(err.isBoom)
 					.to.equal(true);
 
+				expect(err.message)
+					.to.be.a.string()
+					.and.equal('Method not found');
+
 			});
 
 
 		});
 
+
+
+
+		it('should act with error on service not reachable', () => {
+
+			server.close();
+
+			return client.act({
+				service: 'math',
+				cmd: 'add',
+				first: 3,
+				second: 5
+			})
+			.catch((err) => {
+
+				expect(err)
+					.to.be.an.error();
+
+				expect(err.isBoom)
+					.to.equal(true);
+
+				expect(err.message)
+					.to.be.a.string()
+					.and.equal('Connection refused');
+
+			});
+
+
+		});
+
+
+
+		it('should act with error on timeout', function() {
+
+			server.add({
+				service: 'math',
+				cmd: 'timeout'
+			}, () => {
+				return new Promise(() => {});
+			});
+
+
+			return client.act({
+				service: 'math',
+				cmd: 'timeout'
+			})
+			.catch((err) => {
+
+				expect(err)
+					.to.be.an.error();
+
+				expect(err.isBoom)
+					.to.be.a.boolean()
+					.and.equal(true);
+
+				expect(err.message)
+					.to.be.a.string()
+					.and.equal('Timeout');
+
+			});
+
+		});
 
 
 

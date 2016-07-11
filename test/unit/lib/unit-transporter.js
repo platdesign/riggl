@@ -2,6 +2,8 @@
 
 const path = require('path');
 const TransporterBase = require(path.join( process.cwd(), 'lib', 'transporters', 'base'));
+const Boom = require('boom');
+
 
 module.exports = function createUnitTransporter() {
 
@@ -12,13 +14,48 @@ module.exports = function createUnitTransporter() {
 	class UnitTransporter extends TransporterBase {
 
 		request(args, serverOptions) {
-			return servers[serverOptions.port](args)
-				.then((res) => {
-					return JSON.parse(res);
-				})
-				.then((res) => {
-					return res.response;
+
+			let handler = servers[serverOptions.port];
+
+			if(!handler) {
+				return Promise.reject( Boom.badGateway('Connection refused') );
+			}
+
+
+			let result = handler(args);
+
+
+			return new Promise((resolve, reject) => {
+				let hasResult;
+
+				let timeout = setTimeout(function() {
+					if(!hasResult) {
+						reject( Boom.serverUnavailable('Timeout') );
+						hasResult = true;
+					}
+				}, serverOptions.timeout || 500);
+
+
+				result.then((res) => {
+
+					if(!hasResult) {
+						resolve(res);
+						clearTimeout(timeout);
+						hasResult = true;
+					}
+
+				}, (err) => {
+
+					if(!hasResult) {
+						reject(err);
+						hasResult = true;
+						clearTimeout(timeout);
+					}
+
 				});
+
+			});
+
 		};
 
 
@@ -29,18 +66,13 @@ module.exports = function createUnitTransporter() {
 
 			servers[options.port] = function requestHandler(args) {
 
-				return that.riggl.act(args)
-					.then((res) => {
-						return JSON.stringify({
-							response: res
-						});
-					}, (err) => {
-						return JSON.stringify({
-							error: err
-						});
-					});
+				return that.riggl.act(args);
 
 			};
+
+			this.on('close', () => {
+				delete servers[options.port]
+			});
 
 			this.log(['info'], 'Listening');
 
