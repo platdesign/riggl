@@ -63,6 +63,7 @@ describe('http-transporter', () => {
 
 
 
+
 	it('should act with error on unknown method', () => {
 
 		return client.act({
@@ -70,8 +71,13 @@ describe('http-transporter', () => {
 			cmd: 'unknown'
 		})
 		.catch((err) => {
+
 			expect(err)
 				.to.be.an.error();
+
+			expect(err.isBoom)
+				.to.equal(true);
+
 		});
 
 
