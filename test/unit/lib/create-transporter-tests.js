@@ -22,6 +22,8 @@ module.exports = function(Transporter) {
 
 		beforeEach((done) => {
 
+			let PORT = Math.random() > .5 ? 5555 : 5556;
+
 			env.client = Riggl({
 				logger: () => {}
 			});
@@ -35,12 +37,12 @@ module.exports = function(Transporter) {
 
 			env.server.listen({
 				type: type,
-				port: 5555
+				port: PORT
 			});
 
 			env.client.client({
 				type: type,
-				port: 5555,
+				port: function() { return Promise.resolve(PORT); },
 				timeout: 200,
 				pin: [{ service: 'math' }, { service: 'test' }]
 			});
